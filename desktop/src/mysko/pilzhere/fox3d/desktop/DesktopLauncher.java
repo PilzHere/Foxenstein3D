@@ -2,6 +2,7 @@ package mysko.pilzhere.fox3d.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.graphics.Color;
 
 import mysko.pilzhere.fox3d.Foxenstein3D;
 
@@ -29,8 +30,20 @@ public class DesktopLauncher {
 	public static void main(final String[] arg) {
 		final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
+		config.title = "Foxenstein3D";
 		config.x = 0; // Is this needed on Windows too?
 		config.y = 0;
+		config.backgroundFPS = 60;
+		config.foregroundFPS = 144; // change to 60 later
+		config.fullscreen = false;
+		config.width = 640;
+		config.height = 480;
+		config.initialBackgroundColor = Color.WHITE;
+		config.vSyncEnabled = false;
+		config.useGL30 = false; // maybe?
+		config.samples = 0;
+		config.resizable = true;
+//		config.addIcon(path, fileType);
 
 		new LwjglApplication(new Foxenstein3D(), config);
 	}

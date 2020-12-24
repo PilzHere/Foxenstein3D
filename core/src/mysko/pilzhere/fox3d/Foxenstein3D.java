@@ -10,8 +10,11 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import mysko.pilzhere.fox3d.assets.managers.AssetsManager;
-import mysko.pilzhere.fox3d.cellbuilder.Cell3DBuilder;
+import mysko.pilzhere.fox3d.constants.Constants;
+import mysko.pilzhere.fox3d.filters.OverlapFilterManager;
 import mysko.pilzhere.fox3d.maps.MapBuilder;
+import mysko.pilzhere.fox3d.models.ModelMaker;
+import mysko.pilzhere.fox3d.rect.RectManager;
 import mysko.pilzhere.fox3d.screens.PlayScreen;
 import mysko.pilzhere.fox3d.utils.EntityManager;
 
@@ -23,9 +26,12 @@ public class Foxenstein3D extends Game {
 	private FrameBuffer fbo;
 
 	private AssetsManager assMan;
+
 	private EntityManager entMan;
 
-	private Cell3DBuilder cellBuilder;
+	private RectManager rectMan;
+	private ModelMaker cellBuilder;
+	private OverlapFilterManager overlapFilterMan;
 
 	private MapBuilder mapBuilder;
 
@@ -33,15 +39,18 @@ public class Foxenstein3D extends Game {
 	public void create() {
 		batch = new SpriteBatch();
 		mdlBatch = new ModelBatch();
-		fbo = new FrameBuffer(Format.RGB888, 640 / 2, 480 / 2, true); // should be / 4
+		fbo = new FrameBuffer(Format.RGB888, Constants.FBO_WIDTH, Constants.FBO_HEIGHT, true);
 		fbo.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 
 		assMan = new AssetsManager();
 		assMan.finishLoading();
 
-		cellBuilder = new Cell3DBuilder(this); // builds models...
+		overlapFilterMan = new OverlapFilterManager();
+
+		cellBuilder = new ModelMaker(this); // builds models...
 
 		entMan = new EntityManager();
+		rectMan = new RectManager(this);
 
 		mapBuilder = new MapBuilder(this);
 
@@ -67,7 +76,7 @@ public class Foxenstein3D extends Game {
 		return batch;
 	}
 
-	public Cell3DBuilder getCellBuilder() {
+	public ModelMaker getCellBuilder() {
 		return cellBuilder;
 	}
 
@@ -85,6 +94,14 @@ public class Foxenstein3D extends Game {
 
 	public ModelBatch getMdlBatch() {
 		return mdlBatch;
+	}
+
+	public OverlapFilterManager getOverlapFilterMan() {
+		return overlapFilterMan;
+	}
+
+	public RectManager getRectMan() {
+		return rectMan;
 	}
 
 	@Override

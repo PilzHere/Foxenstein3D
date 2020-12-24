@@ -1,4 +1,4 @@
-package mysko.pilzhere.fox3d.cellbuilder;
+package mysko.pilzhere.fox3d.models;
 
 import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;

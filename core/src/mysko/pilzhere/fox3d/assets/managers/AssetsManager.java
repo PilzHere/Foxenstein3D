@@ -7,6 +7,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 public class AssetsManager extends AssetManager {
 	public final String atlas01 = "textures/atlas01.png";
+	public final String enemies = "textures/enemies.png";
 	public final String bgSky01 = "textures/bgSky01.png";
 
 	public final String map01 = "maps/map01.tmx";
@@ -17,13 +18,25 @@ public class AssetsManager extends AssetManager {
 	}
 
 	public void loadMaps() {
+//		Parameters parameters = new Parameters();
+//		parameters.yUp = false;
+//		map01 = new TmxMapLoader().load("path",parameters);
+//		TmxMapLoader loader = new TmxMapLoader();
+
+//		TmxMapLoader.Parameters param = new TmxMapLoader.Parameters();
+//		param.flipY = false;
 		setLoader(TiledMap.class, new TmxMapLoader()); // Tile atlas should be in same folder.
 
 		load(map01, TiledMap.class);
 	}
 
 	public void loadTextures() {
+//		final TextureParameter param = new TextureParameter();
+//		param.minFilter = TextureFilter.Nearest;
+//		param.magFilter = TextureFilter.Nearest;
+
 		load(atlas01, Texture.class);
 		load(bgSky01, Texture.class);
+		load(enemies, Texture.class);
 	}
 }

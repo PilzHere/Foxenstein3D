@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mysko.pilzhere.fox3d.Foxenstein3D;
-import mysko.pilzhere.fox3d.cellbuilder.ModelInstanceBB;
+import mysko.pilzhere.fox3d.models.ModelInstanceBB;
 
 public class GameScreen implements Screen {
 	public final Foxenstein3D game;

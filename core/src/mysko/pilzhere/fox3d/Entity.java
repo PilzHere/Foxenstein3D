@@ -1,20 +1,17 @@
 package mysko.pilzhere.fox3d;
 
+import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 
+import mysko.pilzhere.fox3d.rect.RectanglePlus;
 import mysko.pilzhere.fox3d.screens.GameScreen;
 
 public class Entity {
 	public final GameScreen screen;
-
 	protected int id;
-
 	private boolean tick = true;
-
 	private boolean render2D = true;
-
 	private boolean render3D = true;
-
 	private boolean destroy = false;
 
 	public Entity(final GameScreen screen) {
@@ -31,11 +28,15 @@ public class Entity {
 		return id;
 	}
 
+	public void onCollision(final RectanglePlus otherRect) {
+
+	}
+
 	public void render2D(final float delta) {
 
 	}
 
-	public void render3D(final ModelBatch mdlBatch, final float delta) {
+	public void render3D(final ModelBatch mdlBatch, final Environment env, final float delta) {
 
 	}
 

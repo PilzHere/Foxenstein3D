@@ -44,6 +44,8 @@ public class DesktopLauncher {
 		config.samples = 0;
 		config.resizable = true;
 //		config.addIcon(path, fileType);
+		config.allowSoftwareMode = true;
+		config.useGL30 = true;
 
 		new LwjglApplication(new Foxenstein3D(), config);
 	}

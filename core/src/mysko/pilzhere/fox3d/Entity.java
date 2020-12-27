@@ -9,10 +9,12 @@ import mysko.pilzhere.fox3d.screens.GameScreen;
 public class Entity {
 	public final GameScreen screen;
 	protected int id;
-	private boolean tick = true;
-	private boolean render2D = true;
-	private boolean render3D = true;
-	private boolean destroy = false;
+	protected boolean tick = true;
+	protected boolean render2D = true;
+	protected boolean render3D = true;
+	protected boolean destroy = false;
+
+	protected Entity collidedEntity = null;
 
 	public Entity(final GameScreen screen) {
 		this.screen = screen;
@@ -20,7 +22,7 @@ public class Entity {
 		id = screen.game.getEntMan().assignId();
 	}
 
-	protected void destroy() {
+	public void destroy() {
 
 	}
 
@@ -29,7 +31,7 @@ public class Entity {
 	}
 
 	public void onCollision(final RectanglePlus otherRect) {
-
+		collidedEntity = screen.game.getEntMan().getEntityFromId(otherRect.getConnectedEntityId());
 	}
 
 	public void render2D(final float delta) {

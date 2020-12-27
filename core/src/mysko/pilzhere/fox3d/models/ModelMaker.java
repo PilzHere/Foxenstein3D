@@ -191,10 +191,8 @@ public class ModelMaker {
 
 		final Material matDoorNorth = new Material();
 		matDoorNorth.set(taDoorNorth);
-
 		final Material matDoorSouth = new Material();
 		matDoorSouth.set(taDoorSouth);
-
 		final Material matDoorMiddle = new Material();
 		matDoorMiddle.set(taDoorMiddle);
 

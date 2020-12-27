@@ -2,11 +2,13 @@ package mysko.pilzhere.fox3d.entities.enemies.ai;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 import mysko.pilzhere.fox3d.constants.Constants;
 import mysko.pilzhere.fox3d.entities.enemies.Enemy;
+import mysko.pilzhere.fox3d.entities.enemies.Fireball;
 
-public class EyeAI extends EnemyAI {
+public class SkullAI extends EnemyAI {
 	private final Vector2 rectTargetPos = new Vector2();
 	private final Vector2 rectDirection = new Vector2();
 	private final Vector2 currentRectPos = new Vector2();
@@ -24,7 +26,14 @@ public class EyeAI extends EnemyAI {
 	private long timerEnd;
 	private final long timerTime = 1000L;
 
-	public EyeAI(final Enemy parent) {
+	private boolean shootTimerSet = false;
+//	private long shootTimerStart;
+	private long shootTimerEnd;
+	private final long shootTimerTime = 1000L;
+
+	private final Vector2 projectileTargetPos = new Vector2();
+
+	public SkullAI(final Enemy parent) {
 		super(parent);
 	}
 
@@ -73,6 +82,32 @@ public class EyeAI extends EnemyAI {
 					}
 				}
 			}
+
+//			shoot
+			if (parent.isPlayerInRange()) {
+				projectileTargetPos.set(parent.screen.getPlayer().rect.x - parent.screen.getPlayer().rect.width / 2f,
+						parent.screen.getPlayer().rect.y - parent.screen.getPlayer().rect.height / 2f);
+				if (!shootTimerSet) {
+					final long shootTimerStart = System.currentTimeMillis();
+					final long shootTimerAddRandom = MathUtils.random(666L);
+					shootTimerEnd = shootTimerStart + shootTimerTime + shootTimerAddRandom;
+
+//					spawn fireball
+					parent.screen.game.getEntMan()
+							.addEntity(new Fireball(
+									new Vector3(parent.getRect().x - parent.getRect().width / 2f, 0,
+											parent.getRect().y - parent.getRect().height / 2f),
+									projectileTargetPos.cpy(), parent.screen.game.getEntMan().getScreen()));
+					shootTimerSet = true;
+				}
+			}
+
+			if (shootTimerSet) { // Check even if player is not in range.
+				if (System.currentTimeMillis() >= shootTimerEnd) {
+					shootTimerSet = false;
+				}
+			}
+
 			break;
 		case ATTACKING:
 			break;
@@ -81,5 +116,4 @@ public class EyeAI extends EnemyAI {
 			break;
 		}
 	}
-
 }

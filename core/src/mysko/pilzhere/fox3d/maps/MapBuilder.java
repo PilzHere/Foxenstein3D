@@ -9,12 +9,16 @@ import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 
 import mysko.pilzhere.fox3d.Foxenstein3D;
 import mysko.pilzhere.fox3d.cell.Cell3D;
 import mysko.pilzhere.fox3d.entities.Door;
+import mysko.pilzhere.fox3d.entities.enemies.Enemy;
+import mysko.pilzhere.fox3d.entities.enemies.Eye;
+import mysko.pilzhere.fox3d.entities.enemies.Skull;
 import mysko.pilzhere.fox3d.rect.RectanglePlus;
 import mysko.pilzhere.fox3d.rect.filters.RectanglePlusFilter;
 
@@ -24,6 +28,8 @@ public class MapBuilder {
 
 	private int currentMapWidth;
 	private int currentMapHeight;
+
+	public Vector2 mapLoadSpawnPosition = new Vector2();
 
 	public MapBuilder(final Foxenstein3D game) {
 		this.game = game;
@@ -41,8 +47,9 @@ public class MapBuilder {
 		final TiledMapTileLayer floorLayer = (TiledMapTileLayer) mapLayers.get("floor");
 		final TiledMapTileLayer ceilingLayer = (TiledMapTileLayer) mapLayers.get("ceiling");
 		final MapObjects rects = mapLayers.get("rects").getObjects();
+		final MapObjects enemies = mapLayers.get("enemies").getObjects();
 		final MapObjects doors = mapLayers.get("doors").getObjects();
-//		final MapObjects zones = mapLayers.get("zones").getObjects();
+		final MapObjects teleports = mapLayers.get("teleports").getObjects();
 
 		final Array<Cell3D> cell3DsForWorld = new Array<>();
 
@@ -201,12 +208,58 @@ public class MapBuilder {
 				break;
 			}
 
+			final boolean locked = doorObj.getProperties().get("locked", Boolean.class);
 			final Door door = new Door(
 					new Vector3((float) doorObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
 							(float) doorObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
-					doorDir, game.getEntMan().getScreen());
+					doorDir, locked, game.getEntMan().getScreen());
 
 			game.getEntMan().addEntity(door);
+		}
+
+		for (final MapObject enemyObj : enemies) {
+			final String enemyType = enemyObj.getProperties().get("EnemyType", String.class);
+
+			if (!enemyType.isEmpty() || enemyType != null || enemyType.equalsIgnoreCase("null")) {
+				Enemy enemy = null;
+
+				switch (enemyType) {
+				case "Skull":
+					enemy = new Skull(
+							new Vector3((float) enemyObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
+									(float) enemyObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
+							game.getEntMan().getScreen());
+					break;
+				case "Eye":
+					enemy = new Eye(
+							new Vector3((float) enemyObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
+									(float) enemyObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
+							game.getEntMan().getScreen());
+					break;
+//				case "Fireball":
+//					enemy = new Fireball(
+//							new Vector3((float) enemyObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
+//									(float) enemyObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
+//							game.getEntMan().getScreen());
+//					break;
+				default:
+					enemy = null;
+					break;
+				}
+
+				if (enemy != null) {
+					game.getEntMan().addEntity(enemy);
+				}
+			}
+		}
+
+		for (final MapObject teleportObj : teleports) {
+			final boolean spawnOnMapLoad = teleportObj.getProperties().get("MapSpawn", Boolean.class);
+
+			if (spawnOnMapLoad) {
+				mapLoadSpawnPosition.set((float) teleportObj.getProperties().get("x") / tileSize - currentMapWidth / 2,
+						(float) teleportObj.getProperties().get("y") / tileSize - currentMapHeight / 2);
+			}
 		}
 	}
 }

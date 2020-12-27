@@ -13,7 +13,10 @@ public class Enemy extends Entity {
 	protected Vector3 position = new Vector3();
 
 	protected ModelInstanceBB mdlInst;
+
 	protected RectanglePlus rect;
+
+	protected boolean isPlayerInRange = false;
 
 	public Enemy(final Vector3 position, final GameScreen screen) {
 		super(screen);
@@ -25,6 +28,14 @@ public class Enemy extends Entity {
 		return position;
 	}
 
+	public RectanglePlus getRect() {
+		return rect;
+	}
+
+	public boolean isPlayerInRange() {
+		return isPlayerInRange;
+	}
+
 	@Override
 	public void render3D(final ModelBatch mdlBatch, final Environment env, final float delta) {
 		if (mdlInst != null) {
@@ -33,5 +44,9 @@ public class Enemy extends Entity {
 				mdlBatch.render(mdlInst, env);
 			}
 		}
+	}
+
+	public void setIsPlayerInRange(final boolean isInRange) { // controlled by the player
+		this.isPlayerInRange = isInRange;
 	}
 }

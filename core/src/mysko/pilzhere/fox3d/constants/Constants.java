@@ -11,6 +11,6 @@ public abstract class Constants {
 	public static final int VIEWPORT_WIDTH = 640;
 	public static final int VIEWPORT_HEIGHT = 480;
 
-	public static final int FBO_WIDTH = VIEWPORT_WIDTH / 2;
-	public static final int FBO_HEIGHT = VIEWPORT_HEIGHT / 2;
+	public static final int FBO_WIDTH = VIEWPORT_WIDTH / 2; // 160
+	public static final int FBO_HEIGHT = VIEWPORT_HEIGHT / 2; // 120
 }

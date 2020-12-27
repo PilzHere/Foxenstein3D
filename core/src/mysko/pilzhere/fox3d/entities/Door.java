@@ -1,7 +1,10 @@
 package mysko.pilzhere.fox3d.entities;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.math.Vector3;
 
 import mysko.pilzhere.fox3d.Entity;
@@ -18,23 +21,36 @@ public class Door extends Entity implements IUsable {
 	private final ModelInstanceBB mdlInstDoor;
 
 	private int direction = 0;
-	private final boolean locked = false;
+	private boolean locked = false;
 	private boolean closed = true;
 	private final Vector3 openPos = new Vector3();
 	private final Vector3 closedPos = new Vector3();
 	private boolean animate = false;
 	private final float doorMoveSpeed = 2f;
+	private TextureRegion texRegDoorLockedNorth, texRegDoorLockedSouth;
 
 	private RectanglePlus rect;
 
 	private final Vector3 currentTranslation = new Vector3();
 
-	public Door(final Vector3 position, final int direction, final GameScreen screen) {
+	public Door(final Vector3 position, final int direction, final boolean locked, final GameScreen screen) {
 		super(screen);
 		this.position.set(position.cpy().add(Constants.HALF_UNIT, Constants.HALF_UNIT, 0));
 		this.direction = direction;
+		this.locked = locked;
 
 		mdlInstDoor = new ModelInstanceBB(screen.game.getCellBuilder().mdlDoor);
+
+		if (locked) {
+			texRegDoorLockedNorth = new TextureRegion(
+					(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48, -16, 16);
+			texRegDoorLockedSouth = new TextureRegion(
+					(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48, 16, 16);
+			final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0).get(TextureAttribute.Diffuse);
+			ta1.set(texRegDoorLockedNorth);
+			final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1).get(TextureAttribute.Diffuse);
+			ta2.set(texRegDoorLockedSouth);
+		}
 
 		if (direction == 0) {
 //			face door south in game, north on map

@@ -1,11 +1,18 @@
 package mysko.pilzhere.fox3d.rect;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 import mysko.pilzhere.fox3d.rect.filters.RectanglePlusFilter;
 
 public class RectanglePlus extends Rectangle {
 	private static final long serialVersionUID = 6589196508238637331L;
+
+	public final Vector2 oldPosition = new Vector2();
+	public final Vector2 newPosition = new Vector2();
+
+	public boolean overlapX = false;
+	public boolean overlapY = false;
 
 	private int connectedEntityId = 0;
 	public RectanglePlusFilter filter = RectanglePlusFilter.NONE;

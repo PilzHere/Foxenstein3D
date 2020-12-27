@@ -23,7 +23,15 @@ public class RectManager {
 			if (game.getOverlapFilterMan().doesFiltersOverlap(rect.filter, otherRect.filter)) {
 				if (otherRect != rect) { // if not itself...
 					if (rect.overlaps(otherRect)) {
-//						System.out.println(otherRect.filter); // check filter here
+						if (game.getEntMan().getEntityFromId(rect.getConnectedEntityId()) != null) {
+//							System.out.println("id1: " + rect.getConnectedEntityId());
+							game.getEntMan().getEntityFromId(rect.getConnectedEntityId()).onCollision(otherRect);
+						}
+
+						if (game.getEntMan().getEntityFromId(otherRect.getConnectedEntityId()) != null) {
+//							System.out.println("id2: " + otherRect.getConnectedEntityId());
+							game.getEntMan().getEntityFromId(otherRect.getConnectedEntityId()).onCollision(rect);
+						}
 						return true;
 					}
 				}
@@ -32,13 +40,12 @@ public class RectManager {
 		return false;
 	}
 
-//	public void removeRect(final int id) {
-//		for (int i = 0; i < rects.size; i++) {
-//			if (id == rects.get(i).getId()) {
-//				if (rects.get(i).shouldDestroy()) {
-//					rects.removeIndex(i);
-//				}
-//			}
-//		}
-//	}
+	public void removeRect(final RectanglePlus rect) {
+		for (int i = 0; i < rects.size; i++) {
+			if (rect == rects.get(i)) {
+				rects.removeIndex(i);
+				break;
+			}
+		}
+	}
 }

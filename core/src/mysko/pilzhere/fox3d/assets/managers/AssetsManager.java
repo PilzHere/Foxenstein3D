@@ -9,6 +9,8 @@ public class AssetsManager extends AssetManager {
 	public final String atlas01 = "textures/atlas01.png";
 	public final String enemies = "textures/enemies.png";
 	public final String bgSky01 = "textures/bgSky01.png";
+	public final String guiBG = "textures/guiBG.png";
+	public final String guiGun = "textures/gun.png";
 
 	public final String map01 = "maps/map01.tmx";
 
@@ -38,5 +40,7 @@ public class AssetsManager extends AssetManager {
 		load(atlas01, Texture.class);
 		load(bgSky01, Texture.class);
 		load(enemies, Texture.class);
+		load(guiBG, Texture.class);
+		load(guiGun, Texture.class);
 	}
 }

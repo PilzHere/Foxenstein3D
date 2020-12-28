@@ -31,8 +31,8 @@ public class DesktopLauncher {
 		final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
 		config.title = "Ultra Nightmare";
-		config.x = 0; // Is this needed on Windows too?
-		config.y = 0;
+//		config.x = 0; // I need this in Linux to center screen. Comment for release.
+//		config.y = 0;
 		config.backgroundFPS = 60;
 		config.foregroundFPS = 60; // change to 60 later
 		config.fullscreen = false;

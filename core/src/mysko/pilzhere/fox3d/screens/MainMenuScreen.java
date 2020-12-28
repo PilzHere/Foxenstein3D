@@ -38,6 +38,7 @@ public class MainMenuScreen extends GameScreen {
 	private final String infoControls05 = "SPACE/ENTER/ESCAPE GO BACK";
 	private final String infoMadeBy = "MADE BY CHRISTIAN \"PILZHERE\" PILZ * LIBGDX JAM 15 2020";
 	private final String infoMusicBy = "MUSIC FROM PATRICKDEARTEAGA.COM";
+	private final String infoVersion = "VERSION " + Constants.VERSION;
 	private final String infoSource = "SOURCECODE: GITHUB.COM/PILZHERE/FOXENSTEIN3D";
 	private final String selectedOptionMark = ">";
 	private final GlyphLayout glyphLayoutOptionStartGame;
@@ -46,6 +47,7 @@ public class MainMenuScreen extends GameScreen {
 	private final GlyphLayout glyphLayoutChangeRenderQuality;
 	private final GlyphLayout glyphLayoutInfoSource;
 	private final GlyphLayout glyphLayoutInfoMusic;
+	private final GlyphLayout glyphLayoutInfoVersion;
 	private final GlyphLayout glyphLayoutInfoControls1;
 	private final GlyphLayout glyphLayoutInfoControls2;
 	private final GlyphLayout glyphLayoutInfoControls3;
@@ -88,6 +90,7 @@ public class MainMenuScreen extends GameScreen {
 		glyphLayoutOptionDisplayControls = new GlyphLayout(guiFont01_64, optionDisplayControls);
 		glyphLayoutInfoSource = new GlyphLayout(guiFont01_32, infoSource);
 		glyphLayoutInfoMusic = new GlyphLayout(guiFont01_32, infoMusicBy);
+		glyphLayoutInfoVersion = new GlyphLayout(guiFont01_32, infoVersion);
 		glyphLayoutInfoControls1 = new GlyphLayout(guiFont01_64, infoControls01);
 		glyphLayoutInfoControls2 = new GlyphLayout(guiFont01_64, infoControls02);
 		glyphLayoutInfoControls3 = new GlyphLayout(guiFont01_64, infoControls03);
@@ -121,6 +124,7 @@ public class MainMenuScreen extends GameScreen {
 		super.handleInput(delta);
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+			sfxChoiceId = sfxChoice.play(game.getSfxVolume());
 			if (!displayControls) {
 				switch (selectedOption) {
 				case 0:
@@ -260,6 +264,9 @@ public class MainMenuScreen extends GameScreen {
 			guiFont01_32.draw(game.getBatch(), infoMadeBy, 4, 48);
 			final float infoMusicX = viewport.getWorldWidth() / 2f - glyphLayoutInfoMusic.width / 2f;
 			guiFont01_32.draw(game.getBatch(), infoMusicBy, infoMusicX, 32);
+
+			final float infoVersionX = viewport.getWorldWidth() - glyphLayoutInfoVersion.width - 4;
+			guiFont01_32.draw(game.getBatch(), infoVersion, infoVersionX, viewport.getWorldHeight() - 4);
 
 			final float infoSourceX = viewport.getWorldWidth() / 2f - glyphLayoutInfoSource.width / 2f;
 			guiFont01_32.draw(game.getBatch(), infoSource, infoSourceX, 16);

@@ -37,11 +37,11 @@ public class Player extends Entity {
 
 	private boolean shootTimerSet = false;
 	private long shootTimerEnd;
-	private final long shootTimerCD = 150L;
+	private final long shootTimerCD = 1500L;
 
 	public boolean shootAnimationTimerSet = false;
 	private long shootAnimationTimerEnd;
-	private final long shootAnimationTimerCD = 100L;
+	private final long shootAnimationTimerCD = 1000L;
 
 	private final TextureRegion guiGun, guiGunShoot;
 	public TextureRegion guiCurrentGun;

@@ -88,7 +88,7 @@
    <properties>
     <property name="direction" value="south"/>
     <property name="keytype" type="int" value="0"/>
-    <property name="locked" type="bool" value="true"/>
+    <property name="locked" type="bool" value="false"/>
    </properties>
   </object>
   <object id="123" name="door" gid="14" x="400" y="48" width="16" height="16">

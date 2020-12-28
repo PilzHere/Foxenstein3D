@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.math.Vector3;
 
-import mysko.pilzhere.fox3d.Entity;
+import mysko.pilzhere.fox3d.entities.Entity;
 import mysko.pilzhere.fox3d.models.ModelInstanceBB;
 import mysko.pilzhere.fox3d.screens.GameScreen;
 

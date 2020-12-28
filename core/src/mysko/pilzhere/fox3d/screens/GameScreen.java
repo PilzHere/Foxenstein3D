@@ -1,13 +1,13 @@
 package mysko.pilzhere.fox3d.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import mysko.pilzhere.fox3d.Foxenstein3D;
+import mysko.pilzhere.fox3d.entities.Entity;
 import mysko.pilzhere.fox3d.entities.player.Player;
 import mysko.pilzhere.fox3d.models.ModelInstanceBB;
 import mysko.pilzhere.fox3d.rect.RectanglePlus;
@@ -18,11 +18,14 @@ public class GameScreen implements Screen {
 	protected Camera currentCam;
 
 	protected Viewport viewport;
+
 	private final Vector3 currentSpherePos = new Vector3();
 	protected Player player;
 
 	public GameScreen(final Foxenstein3D game) {
 		this.game = game;
+
+		this.game.gameIsPaused = false;
 
 		game.getEntMan().setScreen(this);
 	}
@@ -92,9 +95,9 @@ public class GameScreen implements Screen {
 	}
 
 	public void handleInput(final float delta) {
-		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-			Gdx.app.exit();
-		}
+//		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // For easy quit while debugging.
+//			Gdx.app.exit();
+//		}
 	}
 
 	@Override
@@ -105,6 +108,22 @@ public class GameScreen implements Screen {
 	@Override
 	public void pause() {
 
+	}
+
+	protected void removeAllEntities() {
+		for (final Entity ent : game.getEntMan().entities) {
+			ent.setDestroy(true);
+			ent.destroy();
+		}
+
+//		for (final Entity ent : game.getEntMan().entities) {
+//			System.out.println(ent);
+//		}
+
+		game.getEntMan().entities.clear(); // Removes cell3Ds and doors.
+		game.getRectMan().rects.clear(); // remove rect walls too.
+//		System.err.println("Entities now: " + game.getEntMan().entities.size);
+//		System.err.println("Rects now: " + game.getRectMan().rects.size);
 	}
 
 	@Override
@@ -125,13 +144,19 @@ public class GameScreen implements Screen {
 
 	}
 
+	public void setCurrentCam(final Camera currentCam) {
+		this.currentCam = currentCam;
+	}
+
 	@Override
 	public void show() {
 
 	}
 
 	public void tick(final float delta) {
-		game.getEntMan().tickAllEntities(delta);
+		if (!game.gameIsPaused) {
+			game.getEntMan().tickAllEntities(delta);
+		}
 	}
 
 }

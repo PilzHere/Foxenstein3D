@@ -30,15 +30,15 @@ public class DesktopLauncher {
 	public static void main(final String[] arg) {
 		final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 
-		config.title = "Foxenstein3D";
+		config.title = "Ultra Nightmare";
 		config.x = 0; // Is this needed on Windows too?
 		config.y = 0;
 		config.backgroundFPS = 60;
-		config.foregroundFPS = 144; // change to 60 later
+		config.foregroundFPS = 60; // change to 60 later
 		config.fullscreen = false;
 		config.width = 640;
 		config.height = 480;
-		config.initialBackgroundColor = Color.WHITE;
+		config.initialBackgroundColor = new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f);
 		config.vSyncEnabled = false;
 		config.useGL30 = false; // maybe?
 		config.samples = 0;

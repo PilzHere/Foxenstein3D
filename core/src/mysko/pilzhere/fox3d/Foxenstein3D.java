@@ -15,7 +15,7 @@ import mysko.pilzhere.fox3d.filters.OverlapFilterManager;
 import mysko.pilzhere.fox3d.maps.MapBuilder;
 import mysko.pilzhere.fox3d.models.ModelMaker;
 import mysko.pilzhere.fox3d.rect.RectManager;
-import mysko.pilzhere.fox3d.screens.PlayScreen;
+import mysko.pilzhere.fox3d.screens.MainMenuScreen;
 import mysko.pilzhere.fox3d.utils.EntityManager;
 
 public class Foxenstein3D extends Game {
@@ -24,7 +24,6 @@ public class Foxenstein3D extends Game {
 	private ModelBatch mdlBatch;
 
 	private FrameBuffer fbo;
-
 	private AssetsManager assMan;
 
 	private EntityManager entMan;
@@ -35,12 +34,20 @@ public class Foxenstein3D extends Game {
 
 	private MapBuilder mapBuilder;
 
+	public boolean gameIsPaused = false;
+
+	private float timeSinceLaunch = 0;
+
+	private float currentAmbientVolume = 0.1f;
+
+	private float currentSfxVolume = 0.25f;
+	private float currentMusicVolume = 0.05f;
+
 	@Override
 	public void create() {
 		batch = new SpriteBatch();
 		mdlBatch = new ModelBatch();
-		fbo = new FrameBuffer(Format.RGB888, Constants.FBO_WIDTH, Constants.FBO_HEIGHT, true);
-		fbo.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
+		createNewFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
 
 		assMan = new AssetsManager();
 		assMan.finishLoading();
@@ -54,7 +61,13 @@ public class Foxenstein3D extends Game {
 
 		mapBuilder = new MapBuilder(this);
 
-		setScreen(new PlayScreen(this));
+//		setScreen(new PlayScreen(this));
+		setScreen(new MainMenuScreen(this));
+	}
+
+	public void createNewFbo(final int width, final int height) {
+		fbo = new FrameBuffer(Format.RGB888, width, height, true);
+		fbo.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 	}
 
 	@Override
@@ -66,6 +79,10 @@ public class Foxenstein3D extends Game {
 		fbo.dispose();
 
 		assMan.dispose();
+	}
+
+	public float getAmbientVolume() {
+		return currentAmbientVolume;
 	}
 
 	public AssetsManager getAssMan() {
@@ -96,6 +113,10 @@ public class Foxenstein3D extends Game {
 		return mdlBatch;
 	}
 
+	public float getMusicVolume() {
+		return currentMusicVolume;
+	}
+
 	public OverlapFilterManager getOverlapFilterMan() {
 		return overlapFilterMan;
 	}
@@ -104,11 +125,33 @@ public class Foxenstein3D extends Game {
 		return rectMan;
 	}
 
+	public float getSfxVolume() {
+		return currentSfxVolume;
+	}
+
+	public float getTimeSinceLaunch() {
+		return timeSinceLaunch;
+	}
+
 	@Override
 	public void render() {
+		timeSinceLaunch += Gdx.graphics.getDeltaTime();
+
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		getScreen().render(Gdx.graphics.getDeltaTime());
+	}
+
+	public void setAmbientVolume(final float currentAmbientVolume) {
+		this.currentAmbientVolume = currentAmbientVolume;
+	}
+
+	public void setMusicVolume(final float newMusicVolume) {
+		this.currentMusicVolume = newMusicVolume;
+	}
+
+	public void setSfxVolume(final float currentSfxVolume) {
+		this.currentSfxVolume = currentSfxVolume;
 	}
 }

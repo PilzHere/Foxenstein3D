@@ -56,17 +56,12 @@ public class Fireball extends Enemy {
 
 	@Override
 	public void destroy() {
-		if (destroy) {
-			System.out.println(rect);
-			screen.game.getRectMan().removeRect(rect);
-			System.out.println(id);
-			screen.game.getEntMan().removeEntity(id);
-		}
+		super.destroy(); // should be last.
 	}
 
 	@Override
 	public void onCollision(final RectanglePlus otherRect) {
-		if (otherRect.filter == RectanglePlusFilter.WALL) {
+		if (otherRect.filter == RectanglePlusFilter.WALL || otherRect.filter == RectanglePlusFilter.DOOR) {
 			setDestroy(true);
 			destroy();
 		} else if (otherRect.filter == RectanglePlusFilter.PLAYER) {

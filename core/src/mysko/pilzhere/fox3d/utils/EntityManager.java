@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.utils.Array;
 
-import mysko.pilzhere.fox3d.Entity;
+import mysko.pilzhere.fox3d.entities.Entity;
 import mysko.pilzhere.fox3d.screens.GameScreen;
 
 public class EntityManager {
@@ -20,7 +20,7 @@ public class EntityManager {
 
 	public int assignId() {
 		nextId++;
-		System.out.println("New entity added ID: " + (nextId - 1));
+//		System.out.println("New entity added ID: " + (nextId - 1));
 		return nextId - 1;
 	}
 

@@ -1,5 +1,6 @@
 package mysko.pilzhere.fox3d.entities;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
@@ -7,7 +8,6 @@ import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.math.Vector3;
 
-import mysko.pilzhere.fox3d.Entity;
 import mysko.pilzhere.fox3d.constants.Constants;
 import mysko.pilzhere.fox3d.models.ModelInstanceBB;
 import mysko.pilzhere.fox3d.rect.RectanglePlus;
@@ -26,26 +26,93 @@ public class Door extends Entity implements IUsable {
 	private final Vector3 openPos = new Vector3();
 	private final Vector3 closedPos = new Vector3();
 	private boolean animate = false;
-	private final float doorMoveSpeed = 2f;
-	private TextureRegion texRegDoorLockedNorth, texRegDoorLockedSouth;
+	private final float doorMoveSpeed = 1.5f;
+	private TextureRegion currentTexRegNorth, currentTexRegSouth;
+	private TextureRegion texRegDoorLockedNorth, texRegDoorUnlockedNorth, texRegDoorLockedSouth,
+			texRegDoorUnlockedSouth;
 
 	private RectanglePlus rect;
 
 	private final Vector3 currentTranslation = new Vector3();
 
-	public Door(final Vector3 position, final int direction, final boolean locked, final GameScreen screen) {
+	public int keyRequired;
+
+	private final Sound sfxOpen;
+	private long sfxOpenId;
+
+	public Door(final Vector3 position, final int direction, final boolean locked, final int keyRequired,
+			final GameScreen screen) {
 		super(screen);
 		this.position.set(position.cpy().add(Constants.HALF_UNIT, Constants.HALF_UNIT, 0));
 		this.direction = direction;
 		this.locked = locked;
+		this.keyRequired = keyRequired;
 
 		mdlInstDoor = new ModelInstanceBB(screen.game.getCellBuilder().mdlDoor);
 
+		sfxOpen = screen.game.getAssMan().get(screen.game.getAssMan().sfxDoorOpening);
+
 		if (locked) {
-			texRegDoorLockedNorth = new TextureRegion(
-					(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48, -16, 16);
-			texRegDoorLockedSouth = new TextureRegion(
-					(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48, 16, 16);
+			switch (keyRequired) {
+			case 1:
+				texRegDoorLockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 16, -16, 16);
+				texRegDoorLockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48 + 16, 16, 16);
+				texRegDoorUnlockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 96, 48 + 16, -16, 16);
+				texRegDoorUnlockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 16, 16, 16);
+				break;
+			case 2:
+				texRegDoorLockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 32, -16, 16);
+				texRegDoorLockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48 + 32, 16, 16);
+				texRegDoorUnlockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 96, 48 + 32, -16, 16);
+				texRegDoorUnlockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 32, 16, 16);
+				break;
+			case 3:
+				texRegDoorLockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 48, -16, 16);
+				texRegDoorLockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48 + 48, 16, 16);
+				texRegDoorUnlockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 96, 48 + 48, -16, 16);
+				texRegDoorUnlockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48 + 48, 16, 16);
+				break;
+			case 4:
+				texRegDoorLockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80 + 32, 48 + 48, -16,
+						16);
+				texRegDoorLockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64 + 32, 48 + 48, 16,
+						16);
+				texRegDoorUnlockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 96 + 32, 48 + 48, -16,
+						16);
+				texRegDoorUnlockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80 + 32, 48 + 48, 16,
+						16);
+				break;
+			default:
+				texRegDoorLockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48, -16, 16);
+				texRegDoorLockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 64, 48, 16, 16);
+				texRegDoorUnlockedNorth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 96, 48, -16, 16);
+				texRegDoorUnlockedSouth = new TextureRegion(
+						(Texture) screen.game.getAssMan().get(screen.game.getAssMan().atlas01), 80, 48, 16, 16);
+				break;
+			}
+
+//			currentTexRegNorth = texRegDoorLockedNorth;
+//			currentTexRegSouth = texRegDoorLockedSouth;
+
 			final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0).get(TextureAttribute.Diffuse);
 			ta1.set(texRegDoorLockedNorth);
 			final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1).get(TextureAttribute.Diffuse);
@@ -80,6 +147,17 @@ public class Door extends Entity implements IUsable {
 		setupRect();
 
 		screen.game.getRectMan().addRect(rect);
+	}
+
+	@Override
+	public void destroy() {
+		if (destroy) {
+			if (rect != null) {
+				screen.game.getRectMan().removeRect(rect);
+			}
+		}
+
+		super.destroy(); // should be last.
 	}
 
 	public void moveDoor() {
@@ -173,7 +251,59 @@ public class Door extends Entity implements IUsable {
 
 	public void useDoor() {
 		if (!locked) {
+			sfxOpenId = sfxOpen.play(screen.game.getSfxVolume());
 			moveDoor();
+		} else {
+			switch (keyRequired) {
+			case 1:
+				if (screen.getPlayer().hasRedKeycard) {
+					final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0)
+							.get(TextureAttribute.Diffuse);
+					ta1.set(texRegDoorUnlockedNorth);
+					final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1)
+							.get(TextureAttribute.Diffuse);
+					ta2.set(texRegDoorUnlockedSouth);
+
+					locked = false;
+				}
+				break;
+			case 2:
+				if (screen.getPlayer().hasGreenKeycard) {
+					final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0)
+							.get(TextureAttribute.Diffuse);
+					ta1.set(texRegDoorUnlockedNorth);
+					final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1)
+							.get(TextureAttribute.Diffuse);
+					ta2.set(texRegDoorUnlockedSouth);
+
+					locked = false;
+				}
+				break;
+			case 3:
+				if (screen.getPlayer().hasBlueKeycard) {
+					final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0)
+							.get(TextureAttribute.Diffuse);
+					ta1.set(texRegDoorUnlockedNorth);
+					final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1)
+							.get(TextureAttribute.Diffuse);
+					ta2.set(texRegDoorUnlockedSouth);
+
+					locked = false;
+				}
+				break;
+			case 4:
+				if (screen.getPlayer().hasGoldenKeycard) {
+					final TextureAttribute ta1 = (TextureAttribute) mdlInstDoor.materials.get(0)
+							.get(TextureAttribute.Diffuse);
+					ta1.set(texRegDoorUnlockedNorth);
+					final TextureAttribute ta2 = (TextureAttribute) mdlInstDoor.materials.get(1)
+							.get(TextureAttribute.Diffuse);
+					ta2.set(texRegDoorUnlockedSouth);
+
+					locked = false;
+				}
+				break;
+			}
 		}
 	}
 }

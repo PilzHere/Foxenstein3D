@@ -51,10 +51,7 @@ public class Skull extends Enemy {
 
 	@Override
 	public void destroy() {
-		if (destroy) {
-			screen.game.getRectMan().removeRect(rect);
-			screen.game.getEntMan().removeEntity(id);
-		}
+		super.destroy(); // should be last.
 	}
 
 	@Override

@@ -19,6 +19,7 @@ import mysko.pilzhere.fox3d.entities.Door;
 import mysko.pilzhere.fox3d.entities.enemies.Enemy;
 import mysko.pilzhere.fox3d.entities.enemies.Eye;
 import mysko.pilzhere.fox3d.entities.enemies.Skull;
+import mysko.pilzhere.fox3d.entities.objects.Key;
 import mysko.pilzhere.fox3d.rect.RectanglePlus;
 import mysko.pilzhere.fox3d.rect.filters.RectanglePlusFilter;
 
@@ -30,6 +31,7 @@ public class MapBuilder {
 	private int currentMapHeight;
 
 	public Vector2 mapLoadSpawnPosition = new Vector2();
+	public Vector2 mapLoadExitPosition = new Vector2();
 
 	public MapBuilder(final Foxenstein3D game) {
 		this.game = game;
@@ -50,6 +52,7 @@ public class MapBuilder {
 		final MapObjects enemies = mapLayers.get("enemies").getObjects();
 		final MapObjects doors = mapLayers.get("doors").getObjects();
 		final MapObjects teleports = mapLayers.get("teleports").getObjects();
+		final MapObjects items = mapLayers.get("items").getObjects();
 
 		final Array<Cell3D> cell3DsForWorld = new Array<>();
 
@@ -209,10 +212,12 @@ public class MapBuilder {
 			}
 
 			final boolean locked = doorObj.getProperties().get("locked", Boolean.class);
+			final int keyType = doorObj.getProperties().get("keytype", Integer.class);
+
 			final Door door = new Door(
 					new Vector3((float) doorObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
 							(float) doorObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
-					doorDir, locked, game.getEntMan().getScreen());
+					doorDir, locked, keyType, game.getEntMan().getScreen());
 
 			game.getEntMan().addEntity(door);
 		}
@@ -255,10 +260,30 @@ public class MapBuilder {
 
 		for (final MapObject teleportObj : teleports) {
 			final boolean spawnOnMapLoad = teleportObj.getProperties().get("MapSpawn", Boolean.class);
+//			final boolean exitSpot = teleportObj.getProperties().get("ExitSpot", Boolean.class);
 
 			if (spawnOnMapLoad) {
 				mapLoadSpawnPosition.set((float) teleportObj.getProperties().get("x") / tileSize - currentMapWidth / 2,
 						(float) teleportObj.getProperties().get("y") / tileSize - currentMapHeight / 2);
+
+//				System.err.println(mapLoadSpawnPosition);
+			}
+//			else if (exitSpot) {
+//				mapLoadExitPosition.set((float) teleportObj.getProperties().get("x") / tileSize - currentMapWidth / 2,
+//						(float) teleportObj.getProperties().get("y") / tileSize - currentMapHeight / 2);
+//			}
+		}
+
+		for (final MapObject itemObj : items) {
+			if (itemObj.getName().equals("Key")) {
+				final int keyType = itemObj.getProperties().get("KeyType", Integer.class);
+
+				final Key key = new Key(
+						new Vector3((float) itemObj.getProperties().get("x") / tileSize - currentMapWidth / 2, 0,
+								(float) itemObj.getProperties().get("y") / tileSize - currentMapHeight / 2),
+						keyType, game.getEntMan().getScreen());
+
+				game.getEntMan().addEntity(key);
 			}
 		}
 	}

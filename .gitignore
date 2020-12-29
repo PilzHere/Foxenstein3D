@@ -1,3 +1,14 @@
+## Ultra Nightmare
+
+## Executables
+/desktop/build/libs/UltraNightmare_Windows
+/desktop/build/libs/UltraNightmare_Mac
+/desktop/build/libs/UltraNightmare_Linux
+
+## JREs and zipped executables
+/desktop/build/libs/*.tar.gz
+/desktop/build/libs/*.zip
+
 ## Java
 
 *.class

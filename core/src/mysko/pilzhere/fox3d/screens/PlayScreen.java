@@ -106,6 +106,7 @@ public class PlayScreen extends GameScreen {
 		}
 
 		if (showGuiMenu) {
+			Gdx.input.setCursorCatched(false);
 			game.gameIsPaused = true;
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
@@ -125,6 +126,7 @@ public class PlayScreen extends GameScreen {
 				switch (guiMenuSelection) {
 				case 0:
 //					continue
+					Gdx.input.setCursorCatched(true);
 					showGuiMenu = false;
 					break;
 				case 1:

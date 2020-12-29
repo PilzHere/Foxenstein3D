@@ -113,7 +113,7 @@ public class MainMenuScreen extends GameScreen {
 
 		viewport.setCamera(currentCam);
 
-		Gdx.input.setCursorCatched(true);
+		Gdx.input.setCursorCatched(false);
 
 		sfxAmbientId = sfxAmbient.play(game.getAmbientVolume());
 		sfxAmbient.setLooping(sfxAmbientId, true);

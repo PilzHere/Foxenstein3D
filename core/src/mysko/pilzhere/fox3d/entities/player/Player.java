@@ -23,7 +23,7 @@ public class Player extends Entity {
 
 	final Vector2 movementDirVec2 = new Vector2(movementDir.x, movementDir.z);
 
-	private final float cameraRotationSpeed = 100f;
+	private final float cameraRotationSpeed = 25f;
 
 	private final float playerMoveSpeed = 4f;
 	private final int maxHP = 100;
@@ -37,11 +37,11 @@ public class Player extends Entity {
 
 	private boolean shootTimerSet = false;
 	private long shootTimerEnd;
-	private final long shootTimerCD = 1500L;
+	private final long shootTimerCD = 150L;
 
 	public boolean shootAnimationTimerSet = false;
 	private long shootAnimationTimerEnd;
-	private final long shootAnimationTimerCD = 1000L;
+	private final long shootAnimationTimerCD = 100L;
 
 	private final TextureRegion guiGun, guiGunShoot;
 	public TextureRegion guiCurrentGun;

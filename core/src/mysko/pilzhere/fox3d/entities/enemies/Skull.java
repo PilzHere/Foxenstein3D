@@ -1,11 +1,13 @@
 package mysko.pilzhere.fox3d.entities.enemies;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.Environment;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.attributes.BlendingAttribute;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.FloatAttribute;
 import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.math.Vector3;
@@ -21,6 +23,7 @@ public class Skull extends Enemy {
 	private final SkullAI ai;
 	private final TextureRegion currentTexReg;
 	private final TextureRegion idleTexReg;
+	private float damageTimer;
 
 	public Skull(final Vector3 position, final GameScreen screen) {
 		super(position, screen);
@@ -33,6 +36,7 @@ public class Skull extends Enemy {
 		currentTexReg = idleTexReg;
 
 		mdlInst.materials.get(0).set(TextureAttribute.createDiffuse(currentTexReg));
+		mdlInst.materials.get(0).set(new ColorAttribute(ColorAttribute.Diffuse, Color.WHITE));
 		mdlInst.materials.get(0).set(new BlendingAttribute(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA));
 		mdlInst.materials.get(0).set(new FloatAttribute(FloatAttribute.AlphaTest));
 
@@ -71,5 +75,15 @@ public class Skull extends Enemy {
 		position.set(rect.x + rect.getWidth() / 2, 0, rect.y + rect.getHeight() / 2);
 
 		rect.oldPosition.set(rect.x, rect.y);
+
+        ColorAttribute colorAttribute = (ColorAttribute) mdlInst.materials.get(0).get(ColorAttribute.Diffuse);
+        colorAttribute.color.set(Color.WHITE.cpy().lerp(Color.RED, damageTimer));
+		damageTimer = Math.max(damageTimer - delta * 5f, 0f);
+	}
+
+	@Override
+	public void subHp(int amount) {
+		super.subHp(amount);
+		damageTimer = 1f;
 	}
 }

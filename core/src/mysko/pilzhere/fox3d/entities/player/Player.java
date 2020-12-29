@@ -60,6 +60,7 @@ public class Player extends Entity {
 	public int currentInventorySlot = 1;
 
 	boolean headbob = false;
+	boolean verticalCameraMovement = false;
 
 	public Player(final GameScreen screen) {
 		super(screen);
@@ -238,6 +239,12 @@ public class Player extends Entity {
 			playerCam.rotate(Vector3.Y, Gdx.input.getDeltaX() * -cameraRotationSpeed * delta);
 		}
 
+        if (Gdx.input.getDeltaY() != 0) {
+        	if (verticalCameraMovement) {
+				playerCam.rotate(new Vector3(playerCam.direction.z, 0f, -playerCam.direction.x), Gdx.input.getDeltaY() * -cameraRotationSpeed * delta);
+			}
+        }
+
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			movementDir.add(playerCam.direction.cpy());
 			headbob = true;
@@ -285,6 +292,10 @@ public class Player extends Entity {
 		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_6)) {
 			currentInventorySlot = 6;
 		}
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+            verticalCameraMovement = !verticalCameraMovement;
+        }
 
 		if (headbob) {
 			camY = Constants.HALF_UNIT;

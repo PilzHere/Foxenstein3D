@@ -6,6 +6,7 @@
 	* Add more enemies.
 	* Add more weapons.
 	* Make options in menus clicklable.
+	* Implement load/save game.
 	
 * Art
 	* Redesign enemies.

@@ -73,7 +73,20 @@ com_crashlytics_export_strings.xml
 /build/
 /android/build/
 /core/build/
-/desktop/build/
+# Project Custom
+# /desktop/build/
+/desktop/build/classes/
+/desktop/build/generated/
+/desktop/build/resources/
+/desktop/build/tmp/
+/desktop/build/libs/UltraNightmare.jar
+/desktop/build/libs/*.zip
+/desktop/build/libs/*tar.gz
+/desktop/build/libs/UltraNightmare_Windows
+/desktop/build/libs/UltraNightmare_Mac
+/desktop/build/libs/UltraNightmare_Linux
+# Custom end
+
 /html/build/
 /ios/build/
 

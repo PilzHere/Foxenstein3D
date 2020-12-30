@@ -111,7 +111,9 @@ gradle-app.setting
 /build/
 /android/build/
 /core/build/
-/desktop/build/
+# Project custom
+# /desktop/build/
+# custom end
 /html/build/
 /ios/build/
 

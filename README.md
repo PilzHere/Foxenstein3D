@@ -18,4 +18,4 @@ Made in one week, during the <b>libGDX</b> Game Jam 15 December 2020.
 [christianpilz.com](https://www.christianpilz.com)
 
 ## What's next?
-Check out the [ToDo list](TODO.md).
+Check out the [to do list](todo/todo.md).

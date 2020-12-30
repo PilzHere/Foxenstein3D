@@ -1,0 +1,27 @@
+#1. Build for desktop from project root folder:
+Linux:
+./gradlew desktop:dist
+Windows:
+/gradlew desktop:dist
+
+#2. Download latest Java 8 jre from AdoptOpenJDK for desired platform to port to.
+Place jre in: root folder/desktop/build/libs
+
+#3. Make executable for desired platform with Packr:
+Inside root folder/desktop/build/libs:
+Linux:
+java -jar packr-all-3.0.1.jar ./buildExecutableLinux64.json
+Windows:
+java -jar packr-all-3.0.1.jar ./buildExecutableWindows64.json
+Mac:
+java -jar packr-all-3.0.1.jar ./buildExecutableMac.json
+
+#4. Zip (Windows) and/or Gzip (Linux/Mac):
+Windows:
+zip -r UltraNightmare_Windows.zip ./UltraNightmare_Windows
+Linux:
+tar -czvf UltraNightmare_Linux.tar.gz ./UltraNightmare_Linux
+Mac:
+tar -czvf UltraNightmare_Mac.tar.gz ./UltraNightmare_Mac
+
+#5. Upload executables and/or runnable .jar to Itch.io!

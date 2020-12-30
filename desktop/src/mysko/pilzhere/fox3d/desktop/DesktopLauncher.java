@@ -46,6 +46,7 @@ public class DesktopLauncher {
 //		config.addIcon(path, fileType);
 		config.allowSoftwareMode = true;
 //		config.useGL30 = true;
+		config.forceExit = false;
 
 		new LwjglApplication(new Foxenstein3D(), config);
 	}

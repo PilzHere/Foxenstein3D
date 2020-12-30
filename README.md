@@ -1,5 +1,5 @@
 # Foxenstein3D
-![WIP](readmeScreenshot.png)
+![WIP](readme/readme.png)
 
 ## About
 A first person shooter in the style of Wolfenstein3D.

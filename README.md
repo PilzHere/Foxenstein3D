@@ -1,10 +1,12 @@
 # Foxenstein3D
+The name of the project is Foxenstein3D.<br />
+The name of the game is Ultra Nightmare.
 <p align="center">
 	<img src="readme/readme.png">
 </p>
 
 ## About
-A first person shooter in the style of Wolfenstein3D.
+Ultra Nightmare is a first person shooter in the style of Wolfenstein3D.<br />
 Made in one week, during the <b>libGDX</b> Game Jam 15 December 2020.
 
 ## Download release

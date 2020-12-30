@@ -102,11 +102,11 @@ public class PlayScreen extends GameScreen {
 
 		if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) { // For easy quit while debugging.
 			showGuiMenu = !showGuiMenu;
+			Gdx.input.setCursorCatched(!showGuiMenu);
 			guiMenuSelection = 0;
 		}
 
 		if (showGuiMenu) {
-			Gdx.input.setCursorCatched(false);
 			game.gameIsPaused = true;
 
 			if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {

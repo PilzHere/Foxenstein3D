@@ -1,9 +1,9 @@
 # Foxenstein3D
 <p align="center">
-	<img src="readme/readme.png">
-</p>
+	<img src="readme/readme.png"><br />
 The name of the project is Foxenstein3D.<br />
 The name of the game is Ultra Nightmare.
+</p>
 
 ## About
 Ultra Nightmare is a first person shooter in the style of Wolfenstein3D.<br />

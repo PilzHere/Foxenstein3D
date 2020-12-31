@@ -27,3 +27,4 @@ Made in one week, during the <b>libGDX</b> Game Jam 15 December 2020.
 
 ## What's next?
 Check out the [to do list](readme/TODO.md).
+<br />

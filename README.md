@@ -16,9 +16,10 @@ Made in one week, during the <b>libGDX</b> Game Jam 15 December 2020.
 ### [PilzHere](https://github.com/PilzHere)
 #### Main game developer
 [christianpilz.com](https://www.christianpilz.com)
-
+<br /><br />
 ### [Raxorg](https://github.com/Raxorg)
 * Flashing enemies and camera vertical movement.
+<br />
 
 ## What's next?
 Check out the [to do list](readme/TODO.md).

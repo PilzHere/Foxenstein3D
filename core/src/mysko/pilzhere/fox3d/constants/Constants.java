@@ -3,7 +3,7 @@ package mysko.pilzhere.fox3d.constants;
 public abstract class Constants {
 	public static final int VERSION_MAJOR = 0;
 	public static final int VERSION_MINOR = 1;
-	public static final long VERSION_REVISION = 010120212032L;
+	public static final long VERSION_REVISION = 010120212334L;
 	public static final String VERSION = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_REVISION;
 
 	public static final float PPU = 1f / 16f;

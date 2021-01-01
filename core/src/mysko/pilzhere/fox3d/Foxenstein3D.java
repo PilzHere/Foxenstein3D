@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
@@ -24,8 +23,7 @@ public class Foxenstein3D extends Game {
 
 	private ModelBatch mdlBatch;
 
-	private FrameBuffer fbo, fboPlayerHit;
-	public TextureRegion texRegPlayerHitOverlay;
+	private FrameBuffer fbo;
 	private AssetsManager assMan;
 
 	private EntityManager entMan;
@@ -50,8 +48,6 @@ public class Foxenstein3D extends Game {
 		batch = new SpriteBatch();
 		mdlBatch = new ModelBatch();
 		createNewMainFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
-		fboPlayerHit = createNewFbo(Format.RGBA8888, 2, 2, false);
-		texRegPlayerHitOverlay = new TextureRegion(fboPlayerHit.getColorBufferTexture(), 0, 0, 2, 2);
 
 		assMan = new AssetsManager();
 		assMan.finishLoading();
@@ -69,13 +65,6 @@ public class Foxenstein3D extends Game {
 		setScreen(new MainMenuScreen(this));
 	}
 
-	private FrameBuffer createNewFbo(final Format format, final int width, final int height, final boolean hasDepth) {
-		final FrameBuffer fbo = new FrameBuffer(format, width, height, hasDepth);
-		fbo.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
-
-		return fbo;
-	}
-
 	public void createNewMainFbo(final int width, final int height) {
 		fbo = new FrameBuffer(Format.RGB888, width, height, true);
 		fbo.getColorBufferTexture().setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
@@ -87,7 +76,6 @@ public class Foxenstein3D extends Game {
 
 		batch.dispose();
 		mdlBatch.dispose();
-		fboPlayerHit.dispose();
 		fbo.dispose();
 
 		assMan.dispose();

@@ -33,7 +33,7 @@ public class Player extends Entity {
 
 	public boolean renderBloodOverlay = false;
 	private final float bloodOverlayAlphaMax = 1f;
-	private final float bloodOverlayAlphaMin = 0.2f;
+	private final float bloodOverlayAlphaMin = 0f;
 	private final float bloodOverlayAlphaSpeed = 5f;
 	public float bloodOverlayAlpha = bloodOverlayAlphaMin;
 
@@ -377,14 +377,14 @@ public class Player extends Entity {
 
 		if (gotHit) {
 			renderBloodOverlay = true;
-			bloodOverlayAlpha = bloodOverlayAlphaMin;
+			bloodOverlayAlpha = bloodOverlayAlphaMax;
 			gotHit = false;
 		}
 
 		if (renderBloodOverlay) {
-			bloodOverlayAlpha += delta * bloodOverlayAlphaSpeed;
+			bloodOverlayAlpha -= delta * bloodOverlayAlphaSpeed;
 
-			if (bloodOverlayAlpha >= bloodOverlayAlphaMax) {
+			if (bloodOverlayAlpha <= bloodOverlayAlphaMin) {
 				renderBloodOverlay = false;
 			}
 		}

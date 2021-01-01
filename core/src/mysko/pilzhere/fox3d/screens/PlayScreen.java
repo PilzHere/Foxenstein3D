@@ -20,7 +20,8 @@ import mysko.pilzhere.fox3d.entities.player.Player;
 
 public class PlayScreen extends GameScreen {
 	private final TextureRegion skyBg;
-	private final TextureRegion guiBG, guiBGInventorySelected, guiRedCard, guiGreenCard, guiBlueCard, guiGoldenCard;
+	private final TextureRegion guiBG, guiBGInventorySelected, guiRedCard, guiGreenCard, guiBlueCard, guiGoldenCard,
+			texRegBloodOverlay, texRegBlackOverlay;
 
 	private final Environment env;
 
@@ -44,6 +45,8 @@ public class PlayScreen extends GameScreen {
 	private final Sound musicBackground;
 	private final long musicBackgroundId;
 
+	private final float bloodOverlayAlphaSwitch = 0.5f;
+
 	public PlayScreen(final Foxenstein3D game) {
 		super(game);
 
@@ -53,6 +56,9 @@ public class PlayScreen extends GameScreen {
 		env.set(new ColorAttribute(ColorAttribute.AmbientLight, 1, 1, 1, 1f));
 		fogColor = new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f);
 		env.set(new ColorAttribute(ColorAttribute.Fog, fogColor));
+
+		texRegBloodOverlay = new TextureRegion((Texture) game.getAssMan().get(game.getAssMan().atlas01), 0, 0, 2, 2);
+		texRegBlackOverlay = new TextureRegion((Texture) game.getAssMan().get(game.getAssMan().atlas01), 3, 0, 2, 2);
 
 		skyBg = new TextureRegion((Texture) game.getAssMan().get(game.getAssMan().bgSky01));
 		skyBg.flip(false, true);
@@ -195,21 +201,17 @@ public class PlayScreen extends GameScreen {
 
 //		render final fbo
 		game.getBatch().begin();
-		if (getPlayer().renderBloodOverlay) {
-			game.getBatch().setColor(1, 0, 0, getPlayer().bloodOverlayAlpha);
-			game.getBatch().draw(game.texRegPlayerHitOverlay, 0, 0, viewport.getWorldWidth(),
-					viewport.getWorldHeight());
-		} else {
-			game.getBatch().setColor(1, 1, 1, 1);
-		}
+
+		renderBloodOverlay01();
 
 		game.getBatch().draw(game.getFbo().getColorBufferTexture(), 0, 0, viewport.getWorldWidth(),
 				viewport.getWorldHeight());
 
 //		gui
-
 		game.getBatch().draw(player.guiCurrentGun, viewport.getWorldWidth() / 2f - 7.5f * 8f, (int) player.gunY,
 				7.5f * 16f, 7.5f * 32f);
+
+		renderBloodOverlay02();
 
 //		hud
 		game.getBatch().setColor(1, 1, 1, 1); // Never cover HUD in blood.
@@ -289,6 +291,25 @@ public class PlayScreen extends GameScreen {
 		}
 
 		game.getBatch().end();
+	}
+
+	private void renderBloodOverlay01() {
+//		This pass makes it look cooler.
+//		FIXME You can see floor through the gun if you look closely...
+		if (getPlayer().bloodOverlayAlpha >= bloodOverlayAlphaSwitch) {
+			game.getBatch().setColor(1, 0, 0, getPlayer().bloodOverlayAlpha);
+			game.getBatch().draw(texRegBlackOverlay, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+		}
+	}
+
+	private void renderBloodOverlay02() {
+//		This pass is more traditional.
+		if (getPlayer().renderBloodOverlay) {
+			if (getPlayer().bloodOverlayAlpha < bloodOverlayAlphaSwitch) {
+				game.getBatch().setColor(1, 1, 1, getPlayer().bloodOverlayAlpha);
+				game.getBatch().draw(texRegBloodOverlay, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+			}
+		}
 	}
 
 	@Override

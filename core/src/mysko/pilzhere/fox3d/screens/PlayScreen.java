@@ -195,14 +195,24 @@ public class PlayScreen extends GameScreen {
 
 //		render final fbo
 		game.getBatch().begin();
+		if (getPlayer().renderBloodOverlay) {
+			game.getBatch().setColor(1, 0, 0, getPlayer().bloodOverlayAlpha);
+			game.getBatch().draw(game.texRegPlayerHitOverlay, 0, 0, viewport.getWorldWidth(),
+					viewport.getWorldHeight());
+		} else {
+			game.getBatch().setColor(1, 1, 1, 1);
+		}
+
 		game.getBatch().draw(game.getFbo().getColorBufferTexture(), 0, 0, viewport.getWorldWidth(),
 				viewport.getWorldHeight());
+
 //		gui
 
 		game.getBatch().draw(player.guiCurrentGun, viewport.getWorldWidth() / 2f - 7.5f * 8f, (int) player.gunY,
 				7.5f * 16f, 7.5f * 32f);
 
 //		hud
+		game.getBatch().setColor(1, 1, 1, 1); // Never cover HUD in blood.
 		game.getBatch().draw(guiBG, 0, 0, viewport.getWorldWidth(), 7.5f * 8f);
 		guiFont01_64.draw(game.getBatch(), Integer.toString(getPlayer().getCurrentHP()), 48, 42);
 //		System.out.println(getPlayer().currentInventorySlot);

@@ -143,16 +143,16 @@ public class MainMenuScreen extends GameScreen {
 
 					switch (fboOption) {
 					case 0:
-						game.createNewFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
+						game.createNewMainFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
 						break;
 					case 1:
-						game.createNewFbo(Constants.FBO_WIDTH_DECENT, Constants.FBO_HEIGHT_DECENT);
+						game.createNewMainFbo(Constants.FBO_WIDTH_DECENT, Constants.FBO_HEIGHT_DECENT);
 						break;
 					case 2:
-						game.createNewFbo(Constants.FBO_WIDTH_DELUXE, Constants.FBO_HEIGHT_DELUXE);
+						game.createNewMainFbo(Constants.FBO_WIDTH_DELUXE, Constants.FBO_HEIGHT_DELUXE);
 						break;
 					default:
-						game.createNewFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
+						game.createNewMainFbo(Constants.FBO_WIDTH_ORIGINAL, Constants.FBO_HEIGHT_ORIGINAL);
 						break;
 					}
 					break;

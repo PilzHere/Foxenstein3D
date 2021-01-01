@@ -28,6 +28,15 @@ public class Player extends Entity {
 	private final float playerMoveSpeed = 4f;
 	private final int maxHP = 100;
 	private int currentHP = 100;
+
+	public boolean gotHit = false;
+
+	public boolean renderBloodOverlay = false;
+	private final float bloodOverlayAlphaMax = 1f;
+	private final float bloodOverlayAlphaMin = 0.2f;
+	private final float bloodOverlayAlphaSpeed = 5f;
+	public float bloodOverlayAlpha = bloodOverlayAlphaMin;
+
 	public final PerspectiveCamera playerCam;
 
 	public RectanglePlus rect;
@@ -239,11 +248,12 @@ public class Player extends Entity {
 			playerCam.rotate(Vector3.Y, Gdx.input.getDeltaX() * -cameraRotationSpeed * delta);
 		}
 
-        if (Gdx.input.getDeltaY() != 0) {
-        	if (verticalCameraMovement) {
-				playerCam.rotate(new Vector3(playerCam.direction.z, 0f, -playerCam.direction.x), Gdx.input.getDeltaY() * -cameraRotationSpeed * delta);
+		if (Gdx.input.getDeltaY() != 0) {
+			if (verticalCameraMovement) {
+				playerCam.rotate(new Vector3(playerCam.direction.z, 0f, -playerCam.direction.x),
+						Gdx.input.getDeltaY() * -cameraRotationSpeed * delta);
 			}
-        }
+		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			movementDir.add(playerCam.direction.cpy());
@@ -293,9 +303,9 @@ public class Player extends Entity {
 			currentInventorySlot = 6;
 		}
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
-            verticalCameraMovement = !verticalCameraMovement;
-        }
+		if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_0)) {
+			verticalCameraMovement = !verticalCameraMovement;
+		}
 
 		if (headbob) {
 			camY = Constants.HALF_UNIT;
@@ -347,11 +357,38 @@ public class Player extends Entity {
 			currentHP = 0;
 		}
 
+		gotHit = true;
+
 //		System.out.println("Current HP: " + currentHP);
 	}
 
 	@Override
 	public void tick(final float delta) {
+//		if (gotHit) {
+//			if (!gotHitAnimationTimerSet) {
+//				gotHitAnimationTimerEnd = System.currentTimeMillis() + gotHitAnimationTimerCD;
+//				bloodOverlayAlpha = 0;
+//				renderBloodOverlay = true;
+//				gotHitAnimationTimerSet = true;
+//			}
+//
+//			gotHit = false;
+//		}
+
+		if (gotHit) {
+			renderBloodOverlay = true;
+			bloodOverlayAlpha = bloodOverlayAlphaMin;
+			gotHit = false;
+		}
+
+		if (renderBloodOverlay) {
+			bloodOverlayAlpha += delta * bloodOverlayAlphaSpeed;
+
+			if (bloodOverlayAlpha >= bloodOverlayAlphaMax) {
+				renderBloodOverlay = false;
+			}
+		}
+
 		if (currentHP == 0) {
 			isDead = true;
 //			System.out.println("Player is dead.");

@@ -2,7 +2,6 @@
 
 ## TODO
 * Code
-	* Add red overlay when player hurt.
 	* Add slider/option for mouse sensitivity.
 	* Add more enemies.
 	* Add more weapons.
@@ -30,10 +29,11 @@
 
 ## DONE
 * Code
+	* Add red overlay when player hurt.
 	* Don't catch cursor in menus.
 	* Lower mouse sensitivity.
-		* Mac
-			* Downgraded OpenGL version from 3 to 2. Mac and default shader dont work together it seems.
+	* Mac
+		* Downgraded OpenGL version from 3 to 2. Mac and default shader dont work together it seems.
 * Music
 	* Find fitting music for maps.
 

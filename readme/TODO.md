@@ -2,6 +2,7 @@
 
 ## TODO
 * Code
+	* Add red overlay when player hurt.
 	* Add slider/option for mouse sensitivity.
 	* Add more enemies.
 	* Add more weapons.

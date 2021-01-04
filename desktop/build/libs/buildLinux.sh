@@ -13,7 +13,7 @@ SCRIPT_SUCCESS=false
 # Message
 echo "$MSG Running Linux build script..."
 # Move to project root folder.
-cd ../../../ || exit_on_error "Could not find project root folder."
+cd ../../../ || exit_on_error "$MSG Could not find project root folder."
 
 # Message
 echo "$MSG Building jar file using gradlew..."
@@ -40,7 +40,7 @@ fi
 echo "$MSG Removing old platform folder if it exists... This MUST be done."
 # Remove old platform folder.
 if [ -d "UltraNightmare_Linux" ] ; then
-    rm -rf UltraNightmare_Linux "$MSG Removing old linux executable folder." || exit_on_error "Failed to remove platform directory!"
+    rm -rf UltraNightmare_Linux "$MSG Removing old linux executable folder." || exit_on_error "$MSG Failed to remove platform directory!"
 else
     echo "$MSG There is no Linux executable folder: Skipping this step."
 fi
@@ -58,7 +58,7 @@ fi
 echo "$MSG Zipping Linux executable folder..."
 # tar/gzip the folder containg platform executable
 if [ -d "UltraNightmare_Linux" ] ; then
-    tar -czvf Ultra_Nightmare_Linux.tar.gz UltraNightmare_Linux || exit_on_error "BUILD STATUS: Failed to zip platform executable folder."
+    tar -czvf Ultra_Nightmare_Linux.tar.gz UltraNightmare_Linux || exit_on_error "$MSG Failed to zip platform executable folder."
 else
     echo "$MSG There is no Linux executable folder to be used for zip." EXIT
 fi

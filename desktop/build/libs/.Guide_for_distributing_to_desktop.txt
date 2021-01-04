@@ -1,3 +1,5 @@
+Just use the bash/batch scripts!
+################################
 #1. Build for desktop from project root folder:
 Linux:
 ./gradlew desktop:dist
@@ -23,5 +25,7 @@ Linux:
 tar -czvf UltraNightmare_Linux.tar.gz ./UltraNightmare_Linux
 Mac:
 tar -czvf UltraNightmare_Mac.tar.gz ./UltraNightmare_Mac
+
+################################ END
 
 #5. Upload executables and/or runnable .jar to Itch.io!

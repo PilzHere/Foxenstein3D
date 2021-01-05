@@ -63,15 +63,18 @@ com_crashlytics_export_strings.xml
 /android/build/
 /core/build/
 # Project Custom
-# /desktop/build/
+/desktop/build/
 /desktop/build/classes/
 /desktop/build/generated/
 /desktop/build/resources/
 /desktop/build/tmp/
 /desktop/build/libs/UltraNightmare.jar
 /desktop/build/libs/zip/*
+!/desktop/build/libs/zip/.gitkeep
 /desktop/build/libs/jre/*
+!/desktop/build/libs/jre/.gitkeep
 /desktop/build/libs/exe/*
+!/desktop/build/libs/exe/.gitkeep
 # Custom end
 
 /html/build/

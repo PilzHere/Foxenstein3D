@@ -9,9 +9,9 @@ rem At last it will zip the executable.
 
 set "old_jar_file=desktop-1.0.jar"
 set "new_jar_file=UltraNightmare.jar"
-set "executable_folder=UltraNightmare_Windows"
-set "zip_file=Ultra_Nightmare_Windows.zip"
-set "packr=packr-all-3.0.1.jar"
+set "executable_folder=exe\UltraNightmare_Windows"
+set "zip_file=zip\Ultra_Nightmare_Windows.zip"
+set "packr=packr\packr-all-3.0.1.jar"
 set "json_file=buildExecutableWindows64.json"
 
 set "msg=SCRIPT STATUS:"

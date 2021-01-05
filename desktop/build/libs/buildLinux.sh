@@ -6,10 +6,10 @@
 
 old_jar_file="desktop-1.0.jar"
 new_jar_file="UltraNightmare.jar"
-executable_folder="UltraNightmare_Linux"
-zip_file="Ultra_Nightmare_Linux.tar.gz"
-packr="packr-all-3.0.1.jar"
-json_file="buildExecutableLinux64.json"
+executable_folder="exe/UltraNightmare_Linux"
+zip_file="zip/Ultra_Nightmare_Linux.tar.gz"
+packr="packr/packr-all-3.0.1.jar"
+json_file="json/buildExecutableLinux64.json"
 
 set -e
 msg="SCRIPT STATUS:"

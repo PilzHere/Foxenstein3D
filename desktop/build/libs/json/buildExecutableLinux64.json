@@ -1,0 +1,17 @@
+{
+    "platform": "linux64",
+    "jdk": "jre/OpenJDK8U-jre_x64_linux_hotspot_8u275b01.tar.gz",
+    "executable": "UltraNightmare",
+    "classpath": [
+        "UltraNightmare.jar"
+    ],
+    "removelibs": [
+        "UltraNightmare.jar"
+    ],
+    "mainclass": "mysko.pilzhere.fox3d.desktop.DesktopLauncher",
+    "vmargs": [
+       "Xmx1G"
+    ],
+    "minimizejre": "soft",
+    "output": "exe/UltraNightmare_Linux"
+}

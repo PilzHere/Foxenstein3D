@@ -1,0 +1,10 @@
+{
+  "classPath": [
+    "UltraNightmare.jar"
+  ],
+  "mainClass": "mysko.pilzhere.fox3d.desktop.DesktopLauncher",
+  "useZgcIfSupportedOs": false,
+  "vmArgs": [
+    "-Xmx1G"
+  ]
+}

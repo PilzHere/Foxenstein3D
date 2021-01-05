@@ -70,11 +70,11 @@ com_crashlytics_export_strings.xml
 /desktop/build/tmp/
 /desktop/build/libs/UltraNightmare.jar
 /desktop/build/libs/zip/*
-!/desktop/build/libs/zip/.gitkeep
+!/desktop/build/libs/zip/.keep
 /desktop/build/libs/jre/*
-!/desktop/build/libs/jre/.gitkeep
+!/desktop/build/libs/jre/.keep
 /desktop/build/libs/exe/*
-!/desktop/build/libs/exe/.gitkeep
+!/desktop/build/libs/exe/.keep
 # Custom end
 
 /html/build/

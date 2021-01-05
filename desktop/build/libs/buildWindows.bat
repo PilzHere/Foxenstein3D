@@ -12,7 +12,7 @@ set "new_jar_file=UltraNightmare.jar"
 set "executable_folder=exe\UltraNightmare_Windows"
 set "zip_file=zip\Ultra_Nightmare_Windows.zip"
 set "packr=packr\packr-all-3.0.1.jar"
-set "json_file=buildExecutableWindows64.json"
+set "json_file=json\buildExecutableWindows64.json"
 
 set "msg=SCRIPT STATUS:"
 set /A script_status=1

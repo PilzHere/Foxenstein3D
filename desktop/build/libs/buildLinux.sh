@@ -5,68 +5,66 @@
 # At last it will gzip the executable.
 
 set -e
-
-MSG="SCRIPT STATUS:"
-
-SCRIPT_SUCCESS=false
+msg="SCRIPT STATUS:"
+script_status=false
 
 # Message
-echo "$MSG Running Linux build script..."
+echo "$msg Running Linux build script..."
 # Move to project root folder.
-cd ../../../ || exit_on_error "$MSG Could not find project root folder."
+cd ../../../ || exit_on_error "$msg Could not find project root folder."
 
 # Message
-echo "$MSG Building jar file using gradlew..."
+echo "$msg Building jar file using gradlew..."
 # Build game .jar file.
 if ./gradlew desktop:dist ; then
-    echo "$MSG Building .jar file succeeded."
+    echo "$msg Building .jar file succeeded."
 else
-    echo "$MSG Building .jar file failed." EXIT
+    echo "$msg Building .jar file failed." EXIT
 fi
 
 # Cd to libs:
-cd desktop/build/libs || exit_on_error "$MSG Could not find desktop/build/libs folder."
+cd desktop/build/libs || exit_on_error "$msg Could not find desktop/build/libs folder."
 
 # Message
-echo "$MSG Renaming jar file to game title..."
+echo "$msg Renaming jar file to game title..."
 # Rename standard jar file name with title of game.
 if mv desktop-1.0.jar UltraNightmare.jar ; then
-    echo "$MSG Renaming .jar file succeeded."
+    echo "$msg Renaming .jar file succeeded."
 else
-    echo "$MSG Renaming .jar file failed." EXIT
+    echo "$msg Renaming .jar file failed." EXIT
 fi
 
 # Message
-echo "$MSG Removing old platform folder if it exists... This MUST be done."
+echo "$msg Removing old platform folder if it exists... This MUST be done."
 # Remove old platform folder.
 if [ -d "UltraNightmare_Linux" ] ; then
-    rm -rf UltraNightmare_Linux "$MSG Removing old linux executable folder." || exit_on_error "$MSG Failed to remove platform directory!"
+    rm -rf UltraNightmare_Linux "$msg Removing old linux executable folder." || exit_on_error "$msg Failed to remove platform directory!"
 else
-    echo "$MSG There is no Linux executable folder: Skipping this step."
+    echo "$msg There is no Linux executable folder: Skipping this step."
 fi
 
 # Message
-echo "$MSG Building Linux executable using Packr..."
+echo "$msg Building Linux executable using Packr..."
 # Build linux executable using Packr and its own .json file.
 if [ -f "packr-all-3.0.1.jar" ] ; then
-    java -jar packr-all-3.0.1.jar buildExecutableLinux64.json || exit_on_error "$MSG Failed to use Packr with Json file!"
+    java -jar packr-all-3.0.1.jar buildExecutableLinux64.json || exit_on_error "$msg Failed to use Packr with Json file!"
 else
-    echo "$MSG Could not find Packr. This is needed in /libs folder." EXIT
+    echo "$msg Could not find Packr. This is needed in /libs folder." EXIT
 fi
 
 # Message
-echo "$MSG Zipping Linux executable folder..."
+echo "$msg Zipping Linux executable folder..."
 # tar/gzip the folder containg platform executable
 if [ -d "UltraNightmare_Linux" ] ; then
-    tar -czvf Ultra_Nightmare_Linux.tar.gz UltraNightmare_Linux || exit_on_error "$MSG Failed to zip platform executable folder."
+    tar -czvf Ultra_Nightmare_Linux.tar.gz UltraNightmare_Linux || exit_on_error "$msg Failed to zip platform executable folder."
 else
-    echo "$MSG There is no Linux executable folder to be used for zip." EXIT
+    echo "$msg There is no Linux executable folder to be used for zip." EXIT
 fi
 
-SCRIPT_SUCCESS=true;
+script_status=true;
 
-if [ "$SCRIPT_SUCCESS" = true ] ; then
-    echo "$MSG Done!"
+if [ "$script_status" = true ] ; then
+    echo "$msg Done!"
 else
-    echo "$MSG Failed!"
+    echo "$msg Failed!"
 fi

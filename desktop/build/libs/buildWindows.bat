@@ -7,6 +7,13 @@ rem This will first build the game .jar file using Gradle.
 rem After that it will build executable for Windows.
 rem At last it will zip the executable.
 
+set "old_jar_file=desktop-1.0.jar"
+set "new_jar_file=UltraNightmare.jar"
+set "executable_folder=UltraNightmare_Windows"
+set "zip_file=Ultra_Nightmare_Windows.zip"
+set "packr=packr-all-3.0.1.jar"
+set "json_file=buildExecutableWindows64.json"
+
 set "msg=SCRIPT STATUS:"
 set /A script_status=1
 
@@ -26,8 +33,8 @@ cd desktop\build\libs || %msg% Could not find desktop/build/libs folder. && exit
 rem Message WINDOWS ONLY
 echo %msg% Removing old game title .jar.
 rem Remove old game title jar.
-if exist UltraNightmare.jar (
-    del /S /F /Q UltraNightmare.jar && echo %msg% Removing old -game title- jar folder. || echo %msg% Failed to remove old -game title- jar folder! && exit /b
+if exist %new_jar_file% (
+    del /S /F /Q %new_jar_file% && echo %msg% Removing old -game title- jar folder. || echo %msg% Failed to remove old -game title- jar folder! && exit /b
 ) else (
     echo %msg% There is no old -game title- jar file: Skipping this step.
 )
@@ -35,22 +42,22 @@ if exist UltraNightmare.jar (
 rem Message
 echo %msg% Renaming jar file to game title...
 rem Rename standard jar file name with title of game.
-ren desktop-1.0.jar UltraNightmare.jar && echo %msg% Renaming .jar file succeeded. || echo %msg% Renaming .jar file failed. && exit /b
+ren %old_jar_file% %new_jar_file% && echo %msg% Renaming .jar file succeeded. || echo %msg% Renaming .jar file failed. && exit /b
 
 rem Message
 echo %msg% Removing old platform folder if it exists... This MUST be done.
 rem Remove old platform folder.
-if exist UltraNightmare_Windows (
-    rmdir /S /Q UltraNightmare_Windows && echo %msg% Removing old Windows executable folder. || echo %msg% Failed to remove platform directory! && exit /b
+if exist %executable_folder% (
+    rmdir /S /Q %executable_folder% && echo %msg% Removing old Windows executable folder. || echo %msg% Failed to remove platform directory! && exit /b
 ) else (
     echo %msg% There is no Windows executable folder: Skipping this step.
 )
 
 rem Message
 echo %msg% Building Windows executable using Packr...
-rem Build Windows executable using Packr and its own .json file.
-if exist packr-all-3.0.1.jar (
-    java -jar packr-all-3.0.1.jar buildExecutableWindows64.json || echo %msg% Failed to use Packr with Json file! && exit /b
+rem Build Windows executable using Packr and its own .json_file file.
+if exist %packr% (
+    java -jar %packr% %json_file% || echo %msg% Failed to use Packr with Json file! && exit /b
 ) else (
     echo %msg% Could not find Packr. This is needed in \libs folder. && exit /b
 )
@@ -58,8 +65,8 @@ if exist packr-all-3.0.1.jar (
 rem Message
 echo %msg% Zipping Windows executable folder...
 rem Zip the folder containg platform executable
-if exist UltraNightmare_Windows (
-    tar.exe -a -c -f UltraNightmare_Windows.zip UltraNightmare_Windows || echo %msg% Failed to zip platform executable folder. && exit /b
+if exist %executable_folder% (
+    tar.exe -a -c -f %zip_file% %executable_folder% || echo %msg% Failed to zip platform executable folder. && exit /b
 ) else (
     echo %msg% There is no Windows executable folder to be used for zip. && exit /b
 )

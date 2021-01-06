@@ -244,15 +244,19 @@ public class Player extends Entity {
 			shoot();
 		}
 
-		if (Gdx.input.getDeltaX() != 0) {
-			playerCam.rotate(Vector3.Y, Gdx.input.getDeltaX() * -cameraRotationSpeed * delta);
+		if (screen.game.getGameInput().scrolledYDown) {
+			currentInventorySlot++;
+			currentInventorySlot = currentInventorySlot > 6 ? 1 : currentInventorySlot;
+		} else if (screen.game.getGameInput().scrolledYUp) {
+			currentInventorySlot--;
+			currentInventorySlot = currentInventorySlot < 1 ? 6 : currentInventorySlot;
 		}
 
-		if (Gdx.input.getDeltaY() != 0) {
-			if (verticalCameraMovement) {
-				playerCam.rotate(new Vector3(playerCam.direction.z, 0f, -playerCam.direction.x),
-						Gdx.input.getDeltaY() * -cameraRotationSpeed * delta);
-			}
+		playerCam.rotate(Vector3.Y, Gdx.input.getDeltaX() * -cameraRotationSpeed * delta);
+
+		if (verticalCameraMovement) {
+			playerCam.rotate(new Vector3(playerCam.direction.z, 0f, -playerCam.direction.x),
+					Gdx.input.getDeltaY() * -cameraRotationSpeed * delta);
 		}
 
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {

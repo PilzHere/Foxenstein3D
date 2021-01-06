@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import mysko.pilzhere.fox3d.assets.managers.AssetsManager;
 import mysko.pilzhere.fox3d.constants.Constants;
 import mysko.pilzhere.fox3d.filters.OverlapFilterManager;
+import mysko.pilzhere.fox3d.input.GameInputProcessor;
 import mysko.pilzhere.fox3d.maps.MapBuilder;
 import mysko.pilzhere.fox3d.models.ModelMaker;
 import mysko.pilzhere.fox3d.rect.RectManager;
@@ -24,14 +25,14 @@ public class Foxenstein3D extends Game {
 	private ModelBatch mdlBatch;
 
 	private FrameBuffer fbo;
-	private AssetsManager assMan;
 
+	private AssetsManager assMan;
 	private EntityManager entMan;
 
 	private RectManager rectMan;
+
 	private ModelMaker cellBuilder;
 	private OverlapFilterManager overlapFilterMan;
-
 	private MapBuilder mapBuilder;
 
 	public boolean gameIsPaused = false;
@@ -41,7 +42,9 @@ public class Foxenstein3D extends Game {
 	private float currentAmbientVolume = 0.1f;
 
 	private float currentSfxVolume = 0.25f;
+
 	private float currentMusicVolume = 0.05f;
+	private GameInputProcessor gameInput;
 
 	@Override
 	public void create() {
@@ -60,6 +63,8 @@ public class Foxenstein3D extends Game {
 		rectMan = new RectManager(this);
 
 		mapBuilder = new MapBuilder(this);
+
+		Gdx.input.setInputProcessor(gameInput = new GameInputProcessor());
 
 //		setScreen(new PlayScreen(this));
 		setScreen(new MainMenuScreen(this));
@@ -105,6 +110,10 @@ public class Foxenstein3D extends Game {
 		return fbo;
 	}
 
+	public GameInputProcessor getGameInput() {
+		return gameInput;
+	}
+
 	public MapBuilder getMapBuilder() {
 		return mapBuilder;
 	}
@@ -141,6 +150,8 @@ public class Foxenstein3D extends Game {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		getScreen().render(Gdx.graphics.getDeltaTime());
+
+		gameInput.resetScrolled();
 	}
 
 	public void setAmbientVolume(final float currentAmbientVolume) {

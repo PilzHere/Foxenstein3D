@@ -1,7 +1,8 @@
 package mysko.pilzhere.fox3d.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.Graphics;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
 
 import mysko.pilzhere.fox3d.Foxenstein3D;
@@ -28,25 +29,25 @@ public class DesktopLauncher {
 //	FIXME Change title to new title.
 
 	public static void main(final String[] arg) {
-		final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+        final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
-		config.title = "Ultra Nightmare";
+		config.setTitle("Ultra Nightmare");
 //		config.x = 0; // I need this in Linux to center screen. Comment for release.
 //		config.y = 0;
-		config.backgroundFPS = 60;
-		config.foregroundFPS = 60; // change to 60 later
-		config.fullscreen = false;
-		config.width = 640;
-		config.height = 480;
-		config.initialBackgroundColor = new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f);
-		config.vSyncEnabled = false;
-		config.useGL30 = false; // maybe?
-		config.samples = 0;
-		config.resizable = true;
+		//config.bacbackgroundFPS = 60;
+		config.setForegroundFPS(60);//foregroundFPS = 60; // change to 60 later
+		//config.setFullscreenMode();fullscreen = false;
+		config.setWindowSizeLimits(640,480,640, 480);
+		config.setInitialBackgroundColor(new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f));//initialBackgroundColor = ;
+		//config.vSyncEnabled = false;
+		//config.useOpenGL3();//useGL30 = false; // maybe?
+		//config.sasamples = 0;
+		config.setResizable(true);//resizable = true;
 //		config.addIcon(path, fileType);
-		config.allowSoftwareMode = true;
-		config.forceExit = false;
+		//config.allowSoftwareMode = true;
+		//config.forceExit = false;
 
-		new LwjglApplication(new Foxenstein3D(), config);
+		new Lwjgl3Application(new Foxenstein3D(), config);
+//		new LwjglApplication(new Foxenstein3D(), config);
 	}
 }

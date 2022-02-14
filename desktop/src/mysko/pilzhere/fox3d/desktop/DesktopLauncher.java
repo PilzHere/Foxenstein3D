@@ -1,6 +1,5 @@
 package mysko.pilzhere.fox3d.desktop;
 
-import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.graphics.Color;
@@ -18,36 +17,26 @@ public class DesktopLauncher {
 //	Bat, Floating Eye, Ghost, Bird, Skeleton head...
 //	TODO Ghosts can move thorugh doors. Maybe walls too?
 //	TODO Implement enemies from list.
-//	TODO Weapons: Staff? Cast fire, ice and lighting?
-//	TODO Find fitting music.
-//	TODO Implement fitting music.
-//	TODO AI: Record player positions every 3rd of a second.
-
-//	DONE Nothing yet.
-
-//	TODO After publish --------------------------------------------------
-//	FIXME Change title to new title.
+//	TODO Weapons: ...
 
 	public static void main(final String[] arg) {
         final Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 
 		config.setTitle("Ultra Nightmare");
-//		config.x = 0; // I need this in Linux to center screen. Comment for release.
-//		config.y = 0;
-		//config.bacbackgroundFPS = 60;
+//		config.x = 0; // TODO: i3wm needs this in Linux to center screen. Comment for release.
+//		config.y = 0; // TODO: i3wm needs this in Linux to center screen. Comment for release.
+		config.setBackBufferConfig(8,8,8,8,24,8,0);
 		config.setForegroundFPS(60);//foregroundFPS = 60; // change to 60 later
-		//config.setFullscreenMode();fullscreen = false;
-		config.setWindowSizeLimits(640,480,640, 480);
-		config.setInitialBackgroundColor(new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f));//initialBackgroundColor = ;
-		//config.vSyncEnabled = false;
-		//config.useOpenGL3();//useGL30 = false; // maybe?
-		//config.sasamples = 0;
+		config.setIdleFPS(60);
+		config.setWindowSizeLimits(640,480,7680, 4320); // 8k max
+		config.setInitialBackgroundColor(new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f));
 		config.setResizable(true);//resizable = true;
-//		config.addIcon(path, fileType);
-		//config.allowSoftwareMode = true;
-		//config.forceExit = false;
+		config.setInitialBackgroundColor(new Color(66 / 256f, 33 / 256f, 54 / 256f, 1f));
+		config.useVsync(false);
+		config.useOpenGL3(true, 3, 3); // 3.3 Works on MacOSX
+		config.setResizable(true);
+//		config.setWindowIcon();
 
 		new Lwjgl3Application(new Foxenstein3D(), config);
-//		new LwjglApplication(new Foxenstein3D(), config);
 	}
 }

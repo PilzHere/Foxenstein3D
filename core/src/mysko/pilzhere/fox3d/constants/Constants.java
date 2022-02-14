@@ -1,10 +1,12 @@
 package mysko.pilzhere.fox3d.constants;
 
 public abstract class Constants {
-	public static final int VERSION_MAJOR = 0;
-	public static final int VERSION_MINOR = 1;
-	public static final long VERSION_REVISION = 010120212334L;
-	public static final String VERSION = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_REVISION;
+	private static final int VERSION_MAJOR = 0;
+	private static final int VERSION_MINOR = 0;
+	private static final int VERSION_REVISION = 2;
+	private static final long VERSION_BUILD = 140220221956L;
+	public static final String VERSION = Integer.toString(VERSION_MAJOR) + "." + Integer.toString(VERSION_MINOR) + "."
+			+ Integer.toString(VERSION_REVISION) + " " + Long.toString(VERSION_BUILD);
 
 	public static final float PPU = 1f / 16f;
 	public static final float TILE_SIZE = 16f;

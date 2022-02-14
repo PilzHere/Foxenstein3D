@@ -1,6 +1,6 @@
 {
     "platform": "mac",
-    "jdk": "OpenJDK8U-jre_x64_mac_hotspot_8u275b01.tar.gz",
+    "jdk": "jre/OpenJDK8U-jre_x64_mac_hotspot_8u275b01.tar.gz",
     "executable": "UltraNightmare",
     "classpath": [
         "UltraNightmare.jar"
@@ -13,5 +13,5 @@
        "Xmx1G"
     ],
     "minimizejre": "soft",
-    "output": "UltraNightmare_Mac"
+    "output": "exe/UltraNightmare_Mac"
 }
